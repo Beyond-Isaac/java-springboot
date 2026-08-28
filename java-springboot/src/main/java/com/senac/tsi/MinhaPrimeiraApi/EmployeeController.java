@@ -27,8 +27,12 @@ public class EmployeeController {
     }
 
     @GetMapping("/employee/{id}")
-    public Optional <Employee> getEmployeeById(@PathVariable long id){
-        return repository.findById(id);
+    public Employee getEmployeeById(@PathVariable long id){
+        return repository
+                .findById(id)
+                .orElseThrow(() ->
+                        new EmployeeNotFoundException(id));
+
     }
 
     @PutMapping("/employee/id")
